@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.MobileControls;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Command;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace LaboratoryWork1
 {
@@ -20,9 +20,13 @@ namespace LaboratoryWork1
     /// </summary>
     public partial class MainWindow : Window
     {
+	    MainWindowVM _mainWindow = new MainWindowVM();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = _mainWindow;
         }
     }
 }

@@ -8,13 +8,13 @@
 		Title="MainWindow" Height="450" Width="650">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 
 		<Menu
@@ -23,21 +23,29 @@
 			VerticalAlignment="Top"
 			Background="White">
 			<MenuItem Header="File">
-				<MenuItem x:Name="Open" Header="Открыть" />
-				<MenuItem x:Name="Save" Header="Сохранить" />
-				<MenuItem x:Name="SaveAs" Header="Сохранить как..." />
+                <MenuItem x:Name="OpenImageMenuItem" 
+                          Header="Открыть" 
+                          Command="{Binding AddImageCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
+                <MenuItem x:Name="SaveImageMenuItem" 
+                          Header="Сохранить" />
+                <MenuItem x:Name="SaveAsImageMenuItem" 
+                          Header="Сохранить как..." 
+                          Command="{Binding SaveAsCommand}"/>
 			</MenuItem>
 		</Menu>
 
 		<Image
+			Name ="imageName"
 			Grid.Row="1"
 			Grid.Column="0"
-			Width ="400">
-		</Image>
+            Source="{Binding ImagePath}">
+        </Image>
 		
 		<GroupBox 
 			Grid.Row="1"
 			Grid.Column="1"
+			Margin="5"
 			Header="Выберите действие">
 			<StackPanel 
 				Margin="0 4 0 0">
@@ -63,7 +71,8 @@
 						<TextBox 
 							Grid.Row="0"
 							Grid.Column="1"
-							Margin="0 0 0 4"/>
+							Margin="0 0 0 4"
+                            Text="{Binding Scale}"/>
 
 						<Button 
 							Grid.Row="1" 
@@ -71,40 +80,46 @@
 							Margin="0 4 0 0"
 							HorizontalAlignment="Right"
 							Width="80"
-							Content="Применить"/>
+							Content="Применить"
+                            Command="{Binding ScalingCommand}"
+                            CommandParameter="{Binding ElementName=imageName}"/>
 					</Grid>
-	</GroupBox>
+	            </GroupBox>
 
 				<GroupBox
 					Header="Поворот">
-					<StackPanel
-						Margin="2 4 2 2">
-						<RadioButton 
-							Margin="0 0 0 2"
-							Content="90°"/>
-						
-						<RadioButton 
-							Margin="0 2 0 2"
-							Content="180°" />
-						
-						<RadioButton 
-							Margin="0 2 0 0"
-							Content="270°"/>
-					</StackPanel>
-				</GroupBox>
+                    <StackPanel
+                        Margin="2 4 2 2">
+                        <Button
+                            Content="По часовой"
+                            Margin="2"
+                            Command="{Binding RightRotationCommand}"
+                            CommandParameter="{Binding ElementName=imageName}"/>
+
+                        <Button
+                            Content="Против часовой"
+                            Margin="2"
+                            Command="{Binding LeftRotationCommand}"
+                            CommandParameter="{Binding ElementName=imageName}"/>
+                    </StackPanel>
+        </GroupBox>
 
 				<GroupBox
 					Header="Отражение">
 					<StackPanel
 						Margin="2 4 2 2">
-						<RadioButton 
-							Margin="0 0 0 2"
-							Content="По горизонтали"/>
-						
-						<RadioButton 
-							Margin="0 2 0 0"
-							Content="По вертикали" />
-					</StackPanel>
+                        <Button
+                            Content="По горизонтали"
+                            Margin="2"
+                            Command="{Binding HorizontalReflectionCommand}"
+                            CommandParameter="{Binding ElementName=imageName}"/>
+
+                        <Button
+                            Content="По вертикали"
+                            Margin="2"
+                            Command="{Binding VerticalReflectionCommand}"
+                            CommandParameter="{Binding ElementName=imageName}"/>
+                    </StackPanel>
 				</GroupBox>
 			</StackPanel>
 		</GroupBox>
