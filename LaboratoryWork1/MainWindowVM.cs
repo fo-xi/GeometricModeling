@@ -13,12 +13,6 @@ namespace LaboratoryWork1
 {
 	public class MainWindowVM : ViewModelBase
 	{
-		private int Angle = 90;
-
-		private double AxisX = 1;
-
-		private double AxisY = 1;
-
 		private string _imagePath;
 
 		private double _scale;
@@ -35,14 +29,16 @@ namespace LaboratoryWork1
 
 		public RelayCommand<Image> ScalingCommand { get; set; }
 
-		public RelayCommand SaveCommand { get; set; }
+		public RelayCommand<Image> SaveCommand { get; set; }
 
-		public RelayCommand SaveAsCommand { get; set; }
+		public RelayCommand<Image> SaveAsCommand { get; set; }
 
 		public string ImagePath
 		{
 			get
-			{ return _imagePath; }
+			{
+				return _imagePath;
+			}
 			set
 			{
 				_imagePath = value;
@@ -65,101 +61,119 @@ namespace LaboratoryWork1
 
 		private void AddImage(Image image)
 		{
-			var fileDialog = new OpenFileDialog()
+			var fileDialog = new OpenFileDialog
 			{
 				Title = "Open Image",
-				Filter = "*.png|*.png|*.bmp|*.bmp|*.jpeg|*.jpeg"
+				Filter = "*.png|*.png|*.jpeg|*.jpeg|*.bmp|*.bmp"
 			};
 			if ((bool)fileDialog.ShowDialog())
 			{
 				ImagePath = fileDialog.FileName;
-				BitmapImage bitmapImage = new BitmapImage();
-				bitmapImage.BeginInit();
-				bitmapImage.UriSource = new Uri(ImagePath);
-				bitmapImage.EndInit();
-				image.Source = bitmapImage;
+				using (var fileStream = new FileStream(ImagePath, FileMode.Open))
+				{
+					image.Source = BitmapFrame.Create(fileStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+				}
 			}
 		}
 
-		private void Rotation(Image image)
+		public void SaveAsFileDialog(Image image)
 		{
-			TransformedBitmap transformedBitmap = new TransformedBitmap();
+			var fileDialog = new SaveFileDialog()
+			{
+				Title = "Save Image",
+				Filter = "*.png|*.png|*.jpeg|*.jpeg|*.bmp|*.bmp"
+			};
 
-			BitmapImage bitmapImage = new BitmapImage();
-			bitmapImage.BeginInit();
-			bitmapImage.UriSource = new Uri(ImagePath);
-			bitmapImage.EndInit();
+			if ((bool)fileDialog.ShowDialog())
+			{
+				BitmapEncoder encoder = GetEncoder(Path.GetExtension(fileDialog.FileName));
+				var bitmap = image.Source as BitmapSource;
+				encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-			transformedBitmap.BeginInit();
-			transformedBitmap.Source = bitmapImage;
-			RotateTransform transform = new RotateTransform(Angle);
-			transformedBitmap.Transform = transform;
-			transformedBitmap.EndInit();
+				using (var fileStream = new FileStream(fileDialog.FileName, FileMode.Open))
+				{
+					encoder.Save(fileStream);
+				}
+			}
+		}
 
+		public void SaveFileDialog(Image image)
+		{
+			BitmapEncoder encoder = GetEncoder(Path.GetExtension(ImagePath));
+			var bitmap = image.Source as BitmapSource;
+			encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+			using (var fileStream = new FileStream(ImagePath, FileMode.Open))
+			{
+				encoder.Save(fileStream);
+			}
+		}
+
+		private void Rotation(Image image, double angle)
+		{
+			var bitmap = image.Source as BitmapSource;
+			RotateTransform transform = new RotateTransform(angle);
+			TransformedBitmap transformedBitmap = new TransformedBitmap(bitmap, transform);
 			image.Source = transformedBitmap;
 		}
 
 		private void RightRotation(Image image)
 		{
-			Angle += 90;
-			Rotation(image);
+			Rotation(image, 90);
 		}
 
 		private void LeftRotation(Image image)
 		{
-			Angle -= 90;
-			Rotation(image);
+			Rotation(image, -90);
 		}
 
-		private void Reflection(Image image)
+		private void Reflection(Image image, double axisX, double axisY)
 		{
-			TransformedBitmap transformedBitmap = new TransformedBitmap();
-
-			BitmapImage bitmapImage = new BitmapImage();
-			bitmapImage.BeginInit();
-			bitmapImage.UriSource = new Uri(ImagePath);
-			bitmapImage.EndInit();
-
-			transformedBitmap.BeginInit();
-			transformedBitmap.Source = bitmapImage;
-			ScaleTransform transform = new ScaleTransform(AxisX, AxisY);
-			transformedBitmap.Transform = transform;
-			transformedBitmap.EndInit();
-
+			var bitmap = image.Source as BitmapSource;
+			ScaleTransform transform = new ScaleTransform(axisX, axisY);
+			TransformedBitmap transformedBitmap = new TransformedBitmap(bitmap, transform);
 			image.Source = transformedBitmap;
 		}
 
 		private void HorizontalReflection(Image image)
 		{
-			AxisX *= -1;
-			Reflection(image);
+			Reflection(image, -1, 1);
 		}
 
 		private void VerticalReflection(Image image)
 		{
-			AxisY *= -1;
-			Reflection(image);
+			Reflection(image, 1, -1);
 		}
 
 		private void Scaling(Image image)
 		{
-			AxisX *= _scale;
-			AxisY *= _scale;
-			Reflection(image);
+			Reflection(image, _scale, _scale);
 		}
 
-		public void SaveAsFileDialog()
+		private BitmapEncoder GetEncoder(string type)
 		{
-			var fileDialog = new SaveFileDialog()
-			{
-				Title = "Save Image",
-				Filter = "*.png|*.png|*.bmp|*.bmp|*.jpeg|*.jpeg"
-			};
+			BitmapEncoder encoder;
 
-			if ((bool)fileDialog.ShowDialog())
+			switch (type)
 			{
-				ImagePath = fileDialog.FileName;
+				case ".png":
+					encoder = new PngBitmapEncoder();
+					break;
+
+				case ".jpeg":
+					encoder = new JpegBitmapEncoder();
+					break;
+
+				case ".bmp":
+					encoder = new BmpBitmapEncoder();
+					break;
+
+				default:
+					encoder = new JpegBitmapEncoder();
+					break;
 			}
+
+			return encoder;
 		}
 
 		public MainWindowVM()
@@ -170,7 +184,8 @@ namespace LaboratoryWork1
 			HorizontalReflectionCommand = new RelayCommand<Image>(HorizontalReflection);
 			VerticalReflectionCommand = new RelayCommand<Image>(VerticalReflection);
 			ScalingCommand = new RelayCommand<Image>(Scaling);
-			SaveAsCommand = new RelayCommand(SaveAsFileDialog);
+			SaveAsCommand = new RelayCommand<Image>(SaveAsFileDialog);
+			SaveCommand = new RelayCommand<Image>(SaveFileDialog);
 		}
 	}
 }

@@ -28,10 +28,13 @@
                           Command="{Binding AddImageCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
                 <MenuItem x:Name="SaveImageMenuItem" 
-                          Header="Сохранить" />
+                          Header="Сохранить" 
+                          Command="{Binding SaveCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
                 <MenuItem x:Name="SaveAsImageMenuItem" 
                           Header="Сохранить как..." 
-                          Command="{Binding SaveAsCommand}"/>
+                          Command="{Binding SaveAsCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
 			</MenuItem>
 		</Menu>
 
@@ -39,10 +42,9 @@
 			Name ="imageName"
 			Grid.Row="1"
 			Grid.Column="0"
-            Source="{Binding ImagePath}">
-        </Image>
+			Stretch="None"/>
 		
-		<GroupBox 
+        <GroupBox 
 			Grid.Row="1"
 			Grid.Column="1"
 			Margin="5"
