@@ -90,7 +90,7 @@ namespace LaboratoryWork1
 				var bitmap = image.Source as BitmapSource;
 				encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-				using (var fileStream = new FileStream(fileDialog.FileName, FileMode.Open))
+				using (var fileStream = new FileStream(fileDialog.FileName, FileMode.OpenOrCreate))
 				{
 					encoder.Save(fileStream);
 				}
@@ -103,7 +103,7 @@ namespace LaboratoryWork1
 			var bitmap = image.Source as BitmapSource;
 			encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-			using (var fileStream = new FileStream(ImagePath, FileMode.Open))
+			using (var fileStream = new FileStream(ImagePath, FileMode.OpenOrCreate))
 			{
 				encoder.Save(fileStream);
 			}
