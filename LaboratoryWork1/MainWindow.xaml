@@ -36,6 +36,16 @@
                           Command="{Binding SaveAsCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
 			</MenuItem>
+
+			<MenuItem Header="Edit">
+				<MenuItem x:Name="ContrastMenuItem" 
+				          Header="Contrast" 
+				          Command="{Binding ContrastCommand}"/>
+				<MenuItem x:Name="InversionMenuItem" 
+				          Header="Inversion" />
+				<MenuItem x:Name="SharpMenuItem" 
+				          Header="Sharp" />
+			</MenuItem>
 		</Menu>
 
 		<Image

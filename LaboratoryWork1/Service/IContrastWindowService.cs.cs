@@ -15,10 +15,10 @@ namespace LaboratoryWork1.Service
         bool DialogResult { get; set; }
 
         /// <summary>
-        /// Opens a window.
+        /// Open a window.
         /// </summary>
         /// <param name="note">Note</param>
-        void Open(ContrastWindowVM note);
+        void Open();
 
         /// <summary>
         /// Returns and sets OK command.
@@ -29,5 +29,7 @@ namespace LaboratoryWork1.Service
         /// Returns and sets Cancel command.
         /// </summary>
         RelayCommand CancelCommand { get; set; }
+
+        int Value { get; set; }
     }
 }

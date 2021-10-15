@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
-using System.Windows.Controls;
 using System.Windows.Media;
+using LaboratoryWork1.Service;
+using Image = System.Windows.Controls.Image;
 
 namespace LaboratoryWork1
 {
@@ -32,6 +34,14 @@ namespace LaboratoryWork1
 		public RelayCommand<Image> SaveCommand { get; set; }
 
 		public RelayCommand<Image> SaveAsCommand { get; set; }
+
+        public RelayCommand<Image> ContrastCommand { get; set; }
+
+        public RelayCommand<Image> InversionCommand { get; set; }
+
+        public RelayCommand<Image> SharpCommand { get; set; }
+
+        private IContrastWindowService _contrastWindowService;
 
 		public string ImagePath
 		{
@@ -176,7 +186,19 @@ namespace LaboratoryWork1
 			return encoder;
 		}
 
-		public MainWindowVM()
+        private void Contrast(Image image)
+        {
+            _contrastWindowService.Open();
+
+            if (_contrastWindowService.DialogResult)
+            {
+                var bmDocument = new BMDocument(image.Source);
+				bmDocument.BrightnessAndContrast(0, _contrastWindowService.Value);
+                image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
+            }
+        }
+
+		public MainWindowVM(IContrastWindowService contrastWindowService)
 		{
 			AddImageCommand = new RelayCommand<Image>(AddImage);
 			RightRotationCommand = new RelayCommand<Image>(RightRotation);
@@ -186,6 +208,9 @@ namespace LaboratoryWork1
 			ScalingCommand = new RelayCommand<Image>(Scaling);
 			SaveAsCommand = new RelayCommand<Image>(SaveAsFileDialog);
 			SaveCommand = new RelayCommand<Image>(SaveFileDialog);
-		}
+
+            ContrastCommand = new RelayCommand<Image>(Contrast);
+            _contrastWindowService = contrastWindowService;
+        }
 	}
 }

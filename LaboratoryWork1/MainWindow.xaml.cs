@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using System.Drawing;
 using System.Drawing.Imaging;
+using LaboratoryWork1.Service;
 
 namespace LaboratoryWork1
 {
@@ -20,7 +21,7 @@ namespace LaboratoryWork1
     /// </summary>
     public partial class MainWindow : Window
     {
-	    MainWindowVM _mainWindow = new MainWindowVM();
+	    MainWindowVM _mainWindow = new MainWindowVM(new ContrastWindowService());
 
         public MainWindow()
         {

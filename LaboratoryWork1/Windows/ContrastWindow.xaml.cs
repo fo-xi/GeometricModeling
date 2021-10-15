@@ -17,11 +17,12 @@ namespace LaboratoryWork1.Windows
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class ContrastWindow : Window
     {
-        public Window1()
+        public ContrastWindow(ContrastWindowVM contrastWindowVm)
         {
             InitializeComponent();
+            DataContext = contrastWindowVm;
         }
     }
 }
