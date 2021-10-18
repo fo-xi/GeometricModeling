@@ -76,15 +76,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BMDocument.cs" />
-    <Compile Include="BrightnessAndContrast.cs" />
-    <Compile Include="ContrastWindowVM.cs" />
-    <Compile Include="DotFilter.cs" />
-    <Compile Include="Filter.cs" />
-    <Compile Include="InvertColors.cs" />
+    <Compile Include="Filters\BrightnessAndContrast.cs" />
+    <Compile Include="ViewModels\ContrastWindowVM.cs" />
+    <Compile Include="Filters\DotFilter.cs" />
+    <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\InvertColors.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="Service\ContrastWindowService.cs.cs" />
     <Compile Include="Service\IContrastWindowService.cs.cs" />
-    <Compile Include="Sharp.cs" />
+    <Compile Include="Filters\Sharp.cs" />
     <Compile Include="Windows\ContrastWindow.xaml.cs">
       <DependentUpon>ContrastWindow.xaml</DependentUpon>
     </Compile>
@@ -106,7 +106,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MatrixFilter.cs" />
+    <Compile Include="Filters\MatrixFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
