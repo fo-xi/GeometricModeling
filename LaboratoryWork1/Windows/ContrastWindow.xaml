@@ -13,6 +13,8 @@
 	    </Grid.RowDefinitions>
 
 	    <Slider Grid.Row = "0"
+				Minimum="-100"
+				Maximum="100"
 	            Margin = "10"
 	            Value = "{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 

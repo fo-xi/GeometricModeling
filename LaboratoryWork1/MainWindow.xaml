@@ -40,11 +40,16 @@
 			<MenuItem Header="Edit">
 				<MenuItem x:Name="ContrastMenuItem" 
 				          Header="Contrast" 
-				          Command="{Binding ContrastCommand}"/>
-				<MenuItem x:Name="InversionMenuItem" 
-				          Header="Inversion" />
+				          Command="{Binding ContrastCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
+				<MenuItem x:Name="InvertColorsMenuItem" 
+				          Header="Invert Colors" 
+                          Command="{Binding InvertColorsCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
 				<MenuItem x:Name="SharpMenuItem" 
-				          Header="Sharp" />
+				          Header="Sharp" 
+                          Command="{Binding SharpCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
 			</MenuItem>
 		</Menu>
 

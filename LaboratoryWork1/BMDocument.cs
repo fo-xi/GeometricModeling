@@ -214,10 +214,11 @@ namespace LaboratoryWork1
 		/// <summary>
 		/// Method, which start Transform thread
 		/// </summary>
-		private void Transform()
+		private async Task Transform()
 		{
-			Thread thread = new Thread(new ThreadStart(this.TransformLoop));
-			thread.Start();
+			var task = new Task(TransformLoop);
+			task.Start();
+			await task;
 		}
 
 		/// <summary>
@@ -296,57 +297,24 @@ namespace LaboratoryWork1
 			}
 		}
 
-		/*public void Blur()
+		public async Task BrightnessAndContrast(int ContrastOffset)
 		{
-			this.currentFilter = new Blur();
-			this.Transform();
+			currentFilter = new BrightnessAndContrast();
+			((BrightnessAndContrast)currentFilter).Init(0, ContrastOffset);
+			await Transform();
 		}
 
-		public void Countor()
+		public async Task InvertColors()
 		{
-			this.currentFilter = new Contour();
-			this.Transform();
+			currentFilter = new InvertColors();
+			await Transform(); ;
 		}
 
-		public void Sharp()
+		public async Task Sharp()
 		{
-			this.currentFilter = new Sharp();
-			this.Transform();
+			currentFilter = new Sharp();
+			await Transform();
 		}
-
-		public void DeNoise(int whatToDo, double dK)
-		{
-			this.currentFilter = new DeNoise(whatToDo, dK);
-			this.Transform();
-		}
-
-		public void InvertColors()
-		{
-			this.currentFilter = new InvertColors();
-			this.Transform();
-		}
-
-		public void Undo()
-		{
-			SwapBM();// the buffer image became "current"
-			this.OnDocumentInvalid();// draw			
-			this.modified = true;// "data changed" flag			
-		}
-
-		public void Emboss()
-		{
-			this.currentFilter = new Emboss();
-			this.Transform();
-		}*/
-
-        
-		public void BrightnessAndContrast(int BrightnessOffset, int ContrastOffset)
-		{
-			this.currentFilter = new BrightnessAndContrast();
-			((BrightnessAndContrast)this.currentFilter).Init(BrightnessOffset, ContrastOffset);
-			this.Transform();
-		}
-
 
 		internal void SaveFile()
 		{
@@ -429,8 +397,7 @@ namespace LaboratoryWork1
 
         public BMDocument(ImageSource imageSource)
         {
-            this.fileName = string.Empty;
-            bufferBM[0] = BitmapSourceToBitmap(imageSource as BitmapSource);
+	        bufferBM[0] = BitmapSourceToBitmap(imageSource as BitmapSource);
 			curBM = bufferBM[0];
         }
 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using System.Windows;
+using System.Windows.Documents.DocumentStructures;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
@@ -37,7 +39,7 @@ namespace LaboratoryWork1
 
         public RelayCommand<Image> ContrastCommand { get; set; }
 
-        public RelayCommand<Image> InversionCommand { get; set; }
+        public RelayCommand<Image> InvertColorsCommand { get; set; }
 
         public RelayCommand<Image> SharpCommand { get; set; }
 
@@ -186,16 +188,30 @@ namespace LaboratoryWork1
 			return encoder;
 		}
 
-        private void Contrast(Image image)
+        private async void Contrast(Image image)
         {
             _contrastWindowService.Open();
 
             if (_contrastWindowService.DialogResult)
             {
                 var bmDocument = new BMDocument(image.Source);
-				bmDocument.BrightnessAndContrast(0, _contrastWindowService.Value);
+                await bmDocument.BrightnessAndContrast(_contrastWindowService.Value);
                 image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
             }
+        }
+
+        private async void InvertColors(Image image)
+        {
+	        var bmDocument = new BMDocument(image.Source);
+	        await bmDocument.InvertColors();
+	        image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
+        }
+
+        private async void Sharp(Image image)
+        {
+	        var bmDocument = new BMDocument(image.Source);
+	        await bmDocument.Sharp();
+	        image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
         }
 
 		public MainWindowVM(IContrastWindowService contrastWindowService)
@@ -210,7 +226,9 @@ namespace LaboratoryWork1
 			SaveCommand = new RelayCommand<Image>(SaveFileDialog);
 
             ContrastCommand = new RelayCommand<Image>(Contrast);
-            _contrastWindowService = contrastWindowService;
+			InvertColorsCommand = new RelayCommand<Image>(InvertColors);
+			SharpCommand = new RelayCommand<Image>(Sharp);
+			_contrastWindowService = contrastWindowService;
         }
 	}
 }
