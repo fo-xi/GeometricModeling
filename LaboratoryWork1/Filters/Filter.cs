@@ -12,12 +12,13 @@ namespace LaboratoryWork1
     public abstract class Filter
     {
         public readonly static int SOURCE = 0;
+
         public readonly static int DEST = 1;
 
         private Bitmap[] BM;
+
         // Bitmap data
         protected BitmapData[] Buffer;
-
 
         public Filter()
         {
@@ -29,7 +30,6 @@ namespace LaboratoryWork1
         {
             return ((byte)(0.11 * pPix[0] + 0.59 * pPix[1] + 0.3 * pPix[2]));
         }
-
 
         public bool SetBuffers(Bitmap source, Bitmap dest)
         {

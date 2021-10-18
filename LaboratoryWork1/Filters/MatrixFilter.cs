@@ -9,7 +9,9 @@ namespace LaboratoryWork1
     public class MatrixFilter: Filter
     {
         protected int rangX; // X and Y size of matrix
+
         protected int rangY;
+
         protected int[,] matrix; // matrix pointer
 
         // Pixel transformation method
@@ -18,20 +20,30 @@ namespace LaboratoryWork1
             int x_start = 0;
             int dx = rangX / 2, dy = rangY / 2;
             if (x - dx < 0)
+            {
                 x_start = dx - x;
+            }
 
             int y_start = 0;
+
             if (y - dy < 0)
+            {
                 y_start = dy - y;
+            }
 
             int x_finish = rangX;
 
             if (x + dx > Buffer[SOURCE].Width)
+            {
                 x_finish -= (x + dx - Buffer[SOURCE].Width);
+            }
 
             int y_finish = rangY;
+
             if (y + dy > Buffer[SOURCE].Height)
+            {
                 y_finish -= (y + dy - Buffer[SOURCE].Height);
+            }
 
             // Calculating new pixel color values taking into
             // account neighbors falling into the transformation
@@ -42,6 +54,7 @@ namespace LaboratoryWork1
             {
                 NewBGR[c] = 0; count = 0;
                 for (my = y_start; my < y_finish; my++)
+                {
                     for (mx = x_start; mx < x_finish; mx++)
                     {
                         // Source 
@@ -53,6 +66,7 @@ namespace LaboratoryWork1
                         }
 
                     }
+                }
             }
 
             // Pixel address in the destination image
@@ -60,17 +74,26 @@ namespace LaboratoryWork1
 
             // Reducing the value to the allowed range and setting into the destination
             if (pDPix != null)
+            {
                 for (int c = 0; c < 3; c++)
                 {
                     if (count != 0)
+                    {
                         NewBGR[c] = NewBGR[c] / count;
+                    }
+
                     if (NewBGR[c] < 0)
+                    {
                         NewBGR[c] = 0;
+                    }
                     else if (NewBGR[c] > 255)
+                    {
                         NewBGR[c] = 255;
+                    }
 
                     pDPix[c] = (byte)NewBGR[c];
                 }
+            }
 
             return true;
         }

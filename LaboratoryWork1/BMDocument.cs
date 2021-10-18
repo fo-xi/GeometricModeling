@@ -27,10 +27,13 @@ namespace LaboratoryWork1
 
 		// views array
 		private ArrayList viewList = new ArrayList();
+
 		// current fileName
 		private string fileName;
+
 		// percent for transaction
 		private int executedPercent = 0;
+
 		// Event. When setted - transaction ends anyway
 		public ManualResetEvent EventDoTransform = new ManualResetEvent(false);
 
@@ -69,8 +72,14 @@ namespace LaboratoryWork1
 		/// </summary>
 		public bool Modified
 		{
-			get { return this.modified; }
-			set { this.modified = value; }
+            get
+            {
+                return this.modified;
+            }
+            set
+            {
+                this.modified = value;
+            }
 		}
 
 		/// <summary>
@@ -108,7 +117,10 @@ namespace LaboratoryWork1
 		/// </summary>
 		public string FileName
 		{
-			get { return fileName; }
+            get
+            {
+                return fileName;
+            }
 			set
 			{
 				this.fileName = value;
@@ -159,15 +171,22 @@ namespace LaboratoryWork1
 
 		private int GetNCurrentBM()
 		{
-			if (curBM == null || curBM == bufferBM[0])
-				return 0;
-			else return 1;
+            if (curBM == null || curBM == bufferBM[0])
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
 		}
 
 		private bool CreateCompatibleBuffer()
 		{
-			if (curBM == null)
-				return false;
+            if (curBM == null)
+            {
+                return false;
+            }
 
 			Bitmap pBuff = GetBufferBMPtr();
 
@@ -182,7 +201,6 @@ namespace LaboratoryWork1
 				PixelFormat format = curBM.PixelFormat;
 				pBuff = new Bitmap(curBM.Width, curBM.Height, format);
 			}
-
 
 			SetBufferBMPtr(pBuff);
 			return pBuff != null;
@@ -226,11 +244,15 @@ namespace LaboratoryWork1
 		/// </summary>
 		private void TransformLoop()
 		{
-			if (this.currentFilter == null)
-				return;
+            if (this.currentFilter == null)
+            {
+                return;
+            }
 
-			if (!CreateCompatibleBuffer())
-				return;
+            if (!CreateCompatibleBuffer())
+            {
+                return;
+            }
 
 			//reseting event
 			EventDoTransform.Reset();
@@ -270,8 +292,10 @@ namespace LaboratoryWork1
 						currentFilter.CopyPix(x, (ushort)(width / 2), y);
 						x = (ushort)(width / 2 - 1);
 					}
-					else
-						this.currentFilter.TransformPix(x, y);
+                    else
+                    {
+                        this.currentFilter.TransformPix(x, y);
+                    }
 				}
 			}
 
@@ -364,8 +388,10 @@ namespace LaboratoryWork1
 			{
 				e.HasMorePages = false;
 			}
-			else
-				e.HasMorePages = true;
+            else
+            {
+                e.HasMorePages = true;
+            }
 
 			int y = this.pageCounter / howmanyX;
 			int x = this.pageCounter - y * howmanyX;
@@ -404,7 +430,9 @@ namespace LaboratoryWork1
         public ImageSource ConvertImageSourceToBitmap(Bitmap bitmap)
         {
             if (bitmap == null)
+            {
                 throw new ArgumentNullException("bitmap");
+            }
 
             var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
 

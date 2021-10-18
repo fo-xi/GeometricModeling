@@ -14,11 +14,14 @@ namespace LaboratoryWork1
 		{
 			// Source
 			byte* pSPix = GetPixelPointer(x, y, SOURCE);
+
 			// Destination
 			byte* pDPix = GetPixelPointer(x, y, DEST);
 
-			if (pSPix == null || pDPix == null)
-				return false;
+            if (pSPix == null || pDPix == null)
+            {
+                return false;
+            }
 
 			// Transforming and setting pixel in the source image
 			pDPix[0] = BGRTransTable[0, pSPix[0]];

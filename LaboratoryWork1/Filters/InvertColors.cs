@@ -10,9 +10,13 @@ namespace LaboratoryWork1
 	{
 		public InvertColors()
 		{
-			for (int i = 0, t = 0; t < 3; t++)
-			for (i = 0; i < 256; i++)
-				this.BGRTransTable[t, i] = (byte)(255 - i);
-		}
+            for (int i = 0, t = 0; t < 3; t++)
+            {
+                for (i = 0; i < 256; i++)
+                {
+                    this.BGRTransTable[t, i] = (byte)(255 - i);
+                }
+            }
+        }
 	}
 }

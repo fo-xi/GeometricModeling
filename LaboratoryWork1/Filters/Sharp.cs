@@ -25,18 +25,24 @@ namespace LaboratoryWork1
 		public override unsafe bool TransformPix(ushort x, ushort y)
 		{
 			// Dithering the pixel
-			if (!base.TransformPix(x, y))
-				return false;
+            if (!base.TransformPix(x, y))
+            {
+                return false;
+            }
 
 			// Source
 			byte* pSPix = GetPixelPointer(x, y, SOURCE);
+
 			// Destination
 			byte* pDPix = GetPixelPointer(x, y, DEST);
 
-			if (pSPix == null || pDPix == null)
-				return false;
+            if (pSPix == null || pDPix == null)
+            {
+                return false;
+            }
 
 			int d = 0;
+
 			for (int c = 0; c < 3; c++)
 			{
 				// finding difference
@@ -44,13 +50,20 @@ namespace LaboratoryWork1
 				// Amplifying the difference
 				d *= SHARP_COEFF;
 				// Assigning new value to pixel
-				if ((int)pDPix[c] + d < 0)
-					pDPix[c] = 0;
+                if ((int)pDPix[c] + d < 0)
+                {
+                    pDPix[c] = 0;
+                }
 				else if (pDPix[c] + d > 255)
-					pDPix[c] = 255;
-				else
-					pDPix[c] += (byte)d;
+                {
+                    pDPix[c] = 255;
+                }
+                else
+                {
+                    pDPix[c] += (byte)d;
+                }
 			}
+
 			return true;
 		}
 	}
