@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LaboratoryWork1
 {
-	class BrightnessAndContrast : DotFilter
+	public class BrightnessAndContrast : DotFilter
 	{
 		public const int CONTRAST_MEDIAN = 159;
 
