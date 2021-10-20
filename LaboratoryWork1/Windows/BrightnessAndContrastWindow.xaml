@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaboratoryWork1.Windows"
         mc:Ignorable="d"
-        Title="Contrast" Height="180" Width="400">
+        Title="BrightnessAndContrast" Height="180" Width="400">
     <Grid>
 	    <Grid.RowDefinitions>
 		    <RowDefinition Height="Auto" />
