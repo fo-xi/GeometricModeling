@@ -76,7 +76,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BMDocument.cs" />
+    <Compile Include="Filters\Blur.cs" />
     <Compile Include="Filters\BrightnessAndContrast.cs" />
+    <Compile Include="Filters\Contour.cs" />
+    <Compile Include="Filters\Emboss.cs" />
     <Compile Include="ViewModels\ContrastWindowVM.cs" />
     <Compile Include="Filters\DotFilter.cs" />
     <Compile Include="Filters\Filter.cs" />

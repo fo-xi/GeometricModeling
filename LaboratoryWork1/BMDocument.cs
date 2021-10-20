@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaboratoryWork1.Filters;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -337,6 +338,24 @@ namespace LaboratoryWork1
 		public async Task Sharp()
 		{
 			currentFilter = new Sharp();
+			await Transform();
+		}
+
+		public async Task Blur()
+		{
+			currentFilter = new Blur();
+			await Transform();
+		}
+
+		public async Task Emboss()
+		{
+			currentFilter = new Emboss();
+			await Transform();
+		}
+
+		public async Task Countor()
+		{
+			currentFilter = new Contour();
 			await Transform();
 		}
 

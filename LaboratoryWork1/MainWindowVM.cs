@@ -43,7 +43,15 @@ namespace LaboratoryWork1
 
         public RelayCommand<Image> SharpCommand { get; set; }
 
-        private IContrastWindowService _contrastWindowService;
+		public RelayCommand<Image> BlurCommand { get; set; }
+
+		public RelayCommand<Image> EmbossCommand { get; set; }
+
+		public RelayCommand<Image> ContourCommand { get; set; }
+
+		public RelayCommand<Image> BrightnessCommand { get; set; }
+
+		private IContrastWindowService _contrastWindowService;
 
 		public string ImagePath
 		{
@@ -214,6 +222,27 @@ namespace LaboratoryWork1
 	        image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
         }
 
+		private async void Blur(Image image)
+		{
+			var bmDocument = new BMDocument(image.Source);
+			await bmDocument.Blur();
+			image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
+		}
+
+		private async void Emboss(Image image)
+		{
+			var bmDocument = new BMDocument(image.Source);
+			await bmDocument.Emboss();
+			image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
+		}
+
+		private async void Contour(Image image)
+		{
+			var bmDocument = new BMDocument(image.Source);
+			await bmDocument.Countor();
+			image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
+		}
+
 		public MainWindowVM(IContrastWindowService contrastWindowService)
 		{
 			AddImageCommand = new RelayCommand<Image>(AddImage);
@@ -228,6 +257,11 @@ namespace LaboratoryWork1
             ContrastCommand = new RelayCommand<Image>(Contrast);
 			InvertColorsCommand = new RelayCommand<Image>(InvertColors);
 			SharpCommand = new RelayCommand<Image>(Sharp);
+			BlurCommand = new RelayCommand<Image>(Blur);
+			EmbossCommand = new RelayCommand<Image>(Emboss);
+			ContourCommand = new RelayCommand<Image>(Contour);
+			BrightnessCommand = new RelayCommand<Image>(Brightness);
+
 			_contrastWindowService = contrastWindowService;
         }
 	}

@@ -39,16 +39,28 @@
 
 			<MenuItem Header="Edit">
 				<MenuItem x:Name="ContrastMenuItem" 
-				          Header="Contrast" 
+				          Header="Контраст" 
 				          Command="{Binding ContrastCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
 				<MenuItem x:Name="InvertColorsMenuItem" 
-				          Header="Invert Colors" 
+				          Header="Инверсия" 
                           Command="{Binding InvertColorsCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
 				<MenuItem x:Name="SharpMenuItem" 
-				          Header="Sharp" 
+				          Header="Четкость" 
                           Command="{Binding SharpCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
+				<MenuItem x:Name="BlurMenuItem" 
+				          Header="Размытие" 
+				          Command="{Binding BlurCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
+				<MenuItem x:Name="EmbossMenuItem" 
+				          Header="Рельеф" 
+				          Command="{Binding EmbossCommand}"
+                          CommandParameter="{Binding ElementName=imageName}"/>
+				<MenuItem x:Name="ContourMenuItem" 
+				          Header="Контур" 
+				          Command="{Binding ContourCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
 			</MenuItem>
 		</Menu>
