@@ -1,25 +1,44 @@
-﻿<Window x:Class="LaboratoryWork1.Windows.ContrastWindow"
+﻿<Window x:Class="LaboratoryWork1.Windows.BrightnessAndContrastWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaboratoryWork1.Windows"
         mc:Ignorable="d"
-        Title="Contras" Height="100" Width="400">
+        Title="Contrast" Height="180" Width="400">
     <Grid>
 	    <Grid.RowDefinitions>
 		    <RowDefinition Height="Auto" />
 		    <RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 	    </Grid.RowDefinitions>
 
-	    <Slider Grid.Row = "0"
+		<TextBlock 
+			Grid.Row = "0"
+			Margin = "5"
+			Text="Контраст" />
+
+		<Slider Grid.Row = "1"
 				Minimum="-100"
 				Maximum="100"
-	            Margin = "10"
-	            Value = "{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+	            Margin = "5"
+	            Value = "{Binding ContrastValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+		<TextBlock 
+			Grid.Row = "2"
+			Margin = "5"
+			Text="Яркость" />
+
+		<Slider Grid.Row = "3"
+				Minimum="-100"
+				Maximum="100"
+	            Margin = "5 5 5 10"
+	            Value = "{Binding BrightnessValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<Grid 
-		    Grid.Row="1" 
+		    Grid.Row="4" 
 		    Margin="5 0 5 5"
 		    HorizontalAlignment="Right"
 		    Grid.IsSharedSizeScope="True">

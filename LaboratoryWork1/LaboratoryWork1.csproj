@@ -80,16 +80,16 @@
     <Compile Include="Filters\BrightnessAndContrast.cs" />
     <Compile Include="Filters\Contour.cs" />
     <Compile Include="Filters\Emboss.cs" />
-    <Compile Include="ViewModels\ContrastWindowVM.cs" />
+    <Compile Include="ViewModels\BrightnessAndContrastWindowVM.cs" />
     <Compile Include="Filters\DotFilter.cs" />
     <Compile Include="Filters\Filter.cs" />
     <Compile Include="Filters\InvertColors.cs" />
     <Compile Include="MainWindowVM.cs" />
-    <Compile Include="Service\ContrastWindowService.cs.cs" />
-    <Compile Include="Service\IContrastWindowService.cs.cs" />
+    <Compile Include="Service\BrightnessAndContrastWindowService.cs.cs" />
+    <Compile Include="Service\IBrightnessAndContrastWindowService.cs.cs" />
     <Compile Include="Filters\Sharp.cs" />
-    <Compile Include="Windows\ContrastWindow.xaml.cs">
-      <DependentUpon>ContrastWindow.xaml</DependentUpon>
+    <Compile Include="Windows\BrightnessAndContrastWindow.xaml.cs">
+      <DependentUpon>BrightnessAndContrastWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,7 +103,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\ContrastWindow.xaml">
+    <Page Include="Windows\BrightnessAndContrastWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,7 +37,7 @@ namespace LaboratoryWork1
 
 		public RelayCommand<Image> SaveAsCommand { get; set; }
 
-        public RelayCommand<Image> ContrastCommand { get; set; }
+        public RelayCommand<Image> BrightnessAndContrastCommand { get; set; }
 
         public RelayCommand<Image> InvertColorsCommand { get; set; }
 
@@ -49,9 +49,7 @@ namespace LaboratoryWork1
 
 		public RelayCommand<Image> ContourCommand { get; set; }
 
-		public RelayCommand<Image> BrightnessCommand { get; set; }
-
-		private IContrastWindowService _contrastWindowService;
+		private IBrightnessAndContrastWindowService _brightnessAndContrasWindowService;
 
 		public string ImagePath
 		{
@@ -198,12 +196,14 @@ namespace LaboratoryWork1
 
         private async void Contrast(Image image)
         {
-            _contrastWindowService.Open();
+			_brightnessAndContrasWindowService.Open();
 
-            if (_contrastWindowService.DialogResult)
+            if (_brightnessAndContrasWindowService.DialogResult)
             {
                 var bmDocument = new BMDocument(image.Source);
-                await bmDocument.BrightnessAndContrast(_contrastWindowService.Value);
+                await bmDocument.BrightnessAndContrast
+					(_brightnessAndContrasWindowService.BrightnessValue, 
+					_brightnessAndContrasWindowService.ContrastValue);
                 image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
             }
         }
@@ -243,7 +243,7 @@ namespace LaboratoryWork1
 			image.Source = bmDocument.ConvertImageSourceToBitmap(bmDocument.CurrentBM);
 		}
 
-		public MainWindowVM(IContrastWindowService contrastWindowService)
+		public MainWindowVM(IBrightnessAndContrastWindowService brightnessAndContrasWindowService)
 		{
 			AddImageCommand = new RelayCommand<Image>(AddImage);
 			RightRotationCommand = new RelayCommand<Image>(RightRotation);
@@ -254,15 +254,14 @@ namespace LaboratoryWork1
 			SaveAsCommand = new RelayCommand<Image>(SaveAsFileDialog);
 			SaveCommand = new RelayCommand<Image>(SaveFileDialog);
 
-            ContrastCommand = new RelayCommand<Image>(Contrast);
+            BrightnessAndContrastCommand = new RelayCommand<Image>(Contrast);
 			InvertColorsCommand = new RelayCommand<Image>(InvertColors);
 			SharpCommand = new RelayCommand<Image>(Sharp);
 			BlurCommand = new RelayCommand<Image>(Blur);
 			EmbossCommand = new RelayCommand<Image>(Emboss);
 			ContourCommand = new RelayCommand<Image>(Contour);
-			BrightnessCommand = new RelayCommand<Image>(Brightness);
 
-			_contrastWindowService = contrastWindowService;
+			_brightnessAndContrasWindowService = brightnessAndContrasWindowService;
         }
 	}
 }

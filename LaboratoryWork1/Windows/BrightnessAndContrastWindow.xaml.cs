@@ -17,9 +17,9 @@ namespace LaboratoryWork1.Windows
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class ContrastWindow : Window
+    public partial class BrightnessAndContrastWindow : Window
     {
-        public ContrastWindow(ContrastWindowVM contrastWindowVm)
+        public BrightnessAndContrastWindow(BrightnessAndContrastWindowVM contrastWindowVm)
         {
             InitializeComponent();
             DataContext = contrastWindowVm;

@@ -38,9 +38,9 @@
 			</MenuItem>
 
 			<MenuItem Header="Edit">
-				<MenuItem x:Name="ContrastMenuItem" 
-				          Header="Контраст" 
-				          Command="{Binding ContrastCommand}"
+				<MenuItem x:Name="BrightnessAndContrastMenuItem" 
+				          Header="Контраст и яркость" 
+				          Command="{Binding BrightnessAndContrastCommand}"
                           CommandParameter="{Binding ElementName=imageName}"/>
 				<MenuItem x:Name="InvertColorsMenuItem" 
 				          Header="Инверсия" 

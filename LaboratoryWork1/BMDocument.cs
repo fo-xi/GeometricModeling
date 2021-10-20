@@ -322,10 +322,10 @@ namespace LaboratoryWork1
 			}
 		}
 
-		public async Task BrightnessAndContrast(int ContrastOffset)
+		public async Task BrightnessAndContrast(int brightnessOffset, int contrastOffset)
 		{
 			currentFilter = new BrightnessAndContrast();
-			((BrightnessAndContrast)currentFilter).Init(0, ContrastOffset);
+			((BrightnessAndContrast)currentFilter).Init(brightnessOffset, contrastOffset);
 			await Transform();
 		}
 

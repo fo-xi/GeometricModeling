@@ -21,7 +21,7 @@ namespace LaboratoryWork1
     /// </summary>
     public partial class MainWindow : Window
     {
-	    MainWindowVM _mainWindow = new MainWindowVM(new ContrastWindowService());
+	    MainWindowVM _mainWindow = new MainWindowVM(new BrightnessAndContrastWindowService());
 
         public MainWindow()
         {

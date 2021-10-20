@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace LaboratoryWork1.Service
 {
-    public interface IContrastWindowService
+    public interface IBrightnessAndContrastWindowService
     {
         bool DialogResult { get; set; }
 
@@ -17,6 +17,8 @@ namespace LaboratoryWork1.Service
 
         RelayCommand CancelCommand { get; set; }
 
-        int Value { get; set; }
+        int ContrastValue { get; set; }
+
+        int BrightnessValue { get; set; }
     }
 }
